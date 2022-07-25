@@ -10,7 +10,7 @@ import "./SafeMath.sol";
 
 /**
  * Abstract Token Smart Contract that could be used as a base contract for
- * ERC-20 token contracts.
+ * ERC-20 delegate contracts.
  */
 contract AbstractToken is Token, SafeMath {
   /**
@@ -83,7 +83,7 @@ contract AbstractToken is Token, SafeMath {
    * @param _spender address to allow the owner of to transfer tokens from
    *        message sender
    * @param _value number of tokens to allow to transfer
-   * @return true if token transfer was successfully approved, false otherwise
+   * @return true if delegate transfer was successfully approved, false otherwise
    */
   function approve (address _spender, uint256 _value)
   public payable returns (bool success) {
@@ -110,14 +110,14 @@ contract AbstractToken is Token, SafeMath {
   }
 
   /**
-   * Mapping from addresses of token holders to the numbers of tokens belonging
-   * to these token holders.
+   * Mapping from addresses of delegate holders to the numbers of tokens belonging
+   * to these delegate holders.
    */
   mapping (address => uint256) internal accounts;
 
   /**
-   * Mapping from addresses of token holders to the mapping of addresses of
-   * spenders to the allowances set by these token holders to these spenders.
+   * Mapping from addresses of delegate holders to the mapping of addresses of
+   * spenders to the allowances set by these delegate holders to these spenders.
    */
   mapping (address => mapping (address => uint256)) internal allowances;
 }

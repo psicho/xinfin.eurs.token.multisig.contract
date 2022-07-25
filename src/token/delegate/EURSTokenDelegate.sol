@@ -8,7 +8,7 @@ pragma solidity ^0.4.20;
 import "./AbstractToken.sol";
 
 /**
- * EURS Token Smart Contract: EIP-20 compatible token smart contract that
+ * EURS Token Smart Contract: EIP-20 compatible delegate smart contract that
  * manages EURS tokens.
  */
 contract EURSToken is AbstractToken {
@@ -114,27 +114,27 @@ contract EURSToken is AbstractToken {
   }
 
   /**
-   * Get name of the token.
+   * Get name of the delegate.
    *
-   * @return name of the token
+   * @return name of the delegate
    */
   function name () public delegatable view returns (string) {
     return "STASIS EURS Token";
   }
 
   /**
-   * Get symbol of the token.
+   * Get symbol of the delegate.
    *
-   * @return symbol of the token
+   * @return symbol of the delegate
    */
   function symbol () public delegatable view returns (string) {
     return "EURS";
   }
 
   /**
-   * Get number of decimals for the token.
+   * Get number of decimals for the delegate.
    *
-   * @return number of decimals for the token
+   * @return number of decimals for the delegate
    */
   function decimals () public delegatable view returns (uint8) {
     return 2;
@@ -229,7 +229,7 @@ contract EURSToken is AbstractToken {
    * @param _spender address to allow the owner of to transfer tokens from
    *        message sender
    * @param _value number of tokens to allow to transfer
-   * @return true if token transfer was successfully approved, false otherwise
+   * @return true if delegate transfer was successfully approved, false otherwise
    */
   function approve (address _spender, uint256 _value)
   public delegatable payable returns (bool success) {
@@ -253,10 +253,10 @@ contract EURSToken is AbstractToken {
   }
 
   /**
-   * Transfer given number of token from the signed defined by digital signature
+   * Transfer given number of delegate from the signed defined by digital signature
    * to given recipient.
    *
-   * @param _to address to transfer token to the owner of
+   * @param _to address to transfer delegate to the owner of
    * @param _value number of tokens to transfer
    * @param _fee number of tokens to give to message sender
    * @param _nonce nonce of the transfer
@@ -353,7 +353,7 @@ contract EURSToken is AbstractToken {
   }
 
   /**
-   * Freeze token transfers.
+   * Freeze delegate transfers.
    */
   function freezeTransfers () public delegatable payable {
     require (msg.sender == owner);
@@ -366,7 +366,7 @@ contract EURSToken is AbstractToken {
   }
 
   /**
-   * Unfreeze token transfers.
+   * Unfreeze delegate transfers.
    */
   function unfreezeTransfers () public delegatable payable {
     require (msg.sender == owner);
@@ -402,11 +402,11 @@ contract EURSToken is AbstractToken {
   }
 
   /**
-   * Get current nonce for token holder with given address, i.e. nonce this
-   * token holder should use for next delegated transfer.
+   * Get current nonce for delegate holder with given address, i.e. nonce this
+   * delegate holder should use for next delegated transfer.
    *
-   * @param _owner address of the token holder to get nonce for
-   * @return current nonce for token holder with give address
+   * @param _owner address of the delegate holder to get nonce for
+   * @return current nonce for delegate holder with give address
    */
   function nonce (address _owner) public view delegatable returns (uint256) {
     return nonces [_owner];
@@ -415,9 +415,9 @@ contract EURSToken is AbstractToken {
   /**
    * Set fee parameters.
    *
-   * @param _fixedFee fixed fee in token units
-   * @param _minVariableFee minimum variable fee in token units
-   * @param _maxVariableFee maximum variable fee in token units
+   * @param _fixedFee fixed fee in delegate units
+   * @param _minVariableFee minimum variable fee in delegate units
+   * @param _maxVariableFee maximum variable fee in delegate units
    * @param _variableFeeNumerator variable fee numerator
    */
   function setFeeParameters (
@@ -545,7 +545,7 @@ contract EURSToken is AbstractToken {
   uint256 internal tokensCount;
 
   /**
-   * Whether token transfers are currently frozen.
+   * Whether delegate transfers are currently frozen.
    */
   bool internal frozen;
 
@@ -555,17 +555,17 @@ contract EURSToken is AbstractToken {
   mapping (address => uint256) internal nonces;
 
   /**
-   * Fixed fee amount in token units.
+   * Fixed fee amount in delegate units.
    */
   uint256 internal fixedFee;
 
   /**
-   * Minimum variable fee in token units.
+   * Minimum variable fee in delegate units.
    */
   uint256 internal minVariableFee;
 
   /**
-   * Maximum variable fee in token units.
+   * Maximum variable fee in delegate units.
    */
   uint256 internal maxVariableFee;
 
@@ -586,21 +586,21 @@ contract EURSToken is AbstractToken {
   address internal delegate;
 
   /**
-   * Logged when token transfers were frozen.
+   * Logged when delegate transfers were frozen.
    */
   event Freeze ();
 
   /**
-   * Logged when token transfers were unfrozen.
+   * Logged when delegate transfers were unfrozen.
    */
   event Unfreeze ();
 
   /**
    * Logged when fee parameters were changed.
    *
-   * @param fixedFee fixed fee in token units
-   * @param minVariableFee minimum variable fee in token units
-   * @param maxVariableFee maximum variable fee in token units
+   * @param fixedFee fixed fee in delegate units
+   * @param minVariableFee minimum variable fee in delegate units
+   * @param maxVariableFee maximum variable fee in delegate units
    * @param variableFeeNumerator variable fee numerator
    */
   event FeeChange (

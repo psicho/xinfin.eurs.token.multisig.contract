@@ -4,7 +4,7 @@
  * Copyright (c) 2018 by STSS (Malta) Limited.
  * Contact: <tech@stasis.net>
  */
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.15;
 
 import "./AbstractToken.sol";
 
@@ -211,8 +211,8 @@ contract EURSToken is AbstractToken {
       accounts [_to] = accounts [_to] + _value;
       accounts [msg.sender] = accounts [msg.sender] + _fee;
 
-      Transfer (_from, _to, _value);
-      Transfer (_from, msg.sender, _fee);
+      emit Transfer (_from, _to, _value);
+      emit Transfer (_from, msg.sender, _fee);
 
       return true;
     }
@@ -232,7 +232,7 @@ contract EURSToken is AbstractToken {
         accounts [msg.sender] = accounts [msg.sender] + _value;
         tokensCount = tokensCount + _value;
 
-        Transfer (address (0), msg.sender, _value);
+        emit Transfer (address (0), msg.sender, _value);
 
         return true;
       } else return false;
@@ -253,7 +253,7 @@ contract EURSToken is AbstractToken {
         accounts [msg.sender] = accounts [msg.sender] - _value;
         tokensCount = tokensCount - _value;
 
-        Transfer (msg.sender, address (0), _value);
+        emit Transfer (msg.sender, address (0), _value);
 
         return true;
       } else return false;
@@ -269,7 +269,7 @@ contract EURSToken is AbstractToken {
     if (!frozen) {
       frozen = true;
 
-      Freeze ();
+      emit Freeze ();
     }
   }
 
@@ -282,7 +282,7 @@ contract EURSToken is AbstractToken {
     if (frozen) {
       frozen = false;
 
-      Unfreeze ();
+      emit Unfreeze ();
     }
   }
 

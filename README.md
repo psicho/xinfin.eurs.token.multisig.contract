@@ -1,0 +1,1 @@
+# xinfin.eurs.token.multisig.contract
